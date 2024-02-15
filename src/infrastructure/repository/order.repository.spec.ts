@@ -121,9 +121,33 @@ describe("Order repository test", () => {
             include: ["items"],
         });
 
-        console.log("Total do pedido no modelo:", orderModel.total);
-        console.log("Total do pedido original:", order.total());
-        expect(orderModel.total).toEqual(order.total());
+        // console.log("Total do pedido no modelo:", orderModel.total);
+        // console.log("Total do pedido original:", order.total());
+        // expect(orderModel.total).toEqual(order.total());
+
+        expect(orderModel.toJSON()).toStrictEqual({
+            id: order.id,
+            customer_id: customer.id,
+            total: order.total(),
+            items: [
+                {
+                    id: orderItem.id,
+                    name: orderItem.name,
+                    price: orderItem.price,
+                    quantity: orderItem.quantity,
+                    order_id: order.id,
+                    product_id: product.id,
+                },
+                {
+                    id: orderItem2.id,
+                    name: orderItem2.name,
+                    price: orderItem2.price,
+                    quantity: orderItem2.quantity,
+                    order_id: order.id,
+                    product_id: product.id,
+                },
+            ],
+        });
     });
 
     it("should find a order", async () => {
