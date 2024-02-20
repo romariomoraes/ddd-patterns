@@ -5,6 +5,13 @@ export default class CustomerChangedAddressHandler
     implements EventHandlerInterface<CustomerChangedAddressEvent>
 {
     handle(event: CustomerChangedAddressEvent): void {
-        console.log(`Customer Changed Address .....`);
+        console.log(
+            "Endereço do cliente: " +
+                event.eventData.id +
+                ", " +
+                event.eventData.name +
+                " alterado para: " +
+                event.eventData.Address.toString()
+        );
     }
 }
